@@ -22,6 +22,7 @@ public class Data1 {
         // TODO code application logic here
         
         System.out.println("hello World");
+        System.out.println("This should be different");
     }
     
 }
