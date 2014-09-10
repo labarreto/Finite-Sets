@@ -23,6 +23,7 @@ public class Data1 {
         
         System.out.println("hello World");
         System.out.println("This should be different");
+        System.out.println("HELLO, I'M A FINITE SET.");
     }
     
 }
