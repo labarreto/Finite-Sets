@@ -13,5 +13,9 @@ package data1;
 
 //creating an interface
 interface bstInterface {
+    //uhh...JK I'm writing this in the Data1.java file
+    //lets keep everything in the same page! Gonna delete soon.
+    //(empty) --> finite-set
+    
     
 }
