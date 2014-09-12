@@ -10,7 +10,13 @@ package data1;
  *
  * @author ldbruby95
  */
-public class Data1 {
+
+
+// creating the BST. has to implement a tree interface. 
+public class BST {
+    
+    
+    
 
     
     
