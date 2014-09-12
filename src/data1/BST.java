@@ -13,8 +13,10 @@ package data1;
 
 
 // creating the BST. has to implement a tree interface. 
-public class BST {
-    
+public class BST implements bstInterface {
+    int here;
+    BST left;
+    BST right;
     
     
 

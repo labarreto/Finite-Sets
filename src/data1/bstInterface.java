@@ -10,6 +10,8 @@ package data1;
  *
  * @author ldbruby95
  */
+
+//creating an interface
 interface bstInterface {
     
 }
