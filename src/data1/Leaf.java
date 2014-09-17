@@ -9,7 +9,7 @@ package data1;
 
 
 //empty tree
-public class Leaf implements FiniteSet{
+public class Leaf implements finiteSet{
     
     Leaf(){}
     
@@ -33,7 +33,7 @@ public class Leaf implements FiniteSet{
         //the empty tree doesn't have any members
     }
     
-    public FiniteSet add(int elt) {
+    public finiteSet add(int elt) {
         // add int elt to a the empty tree.
         // thus left and right would be null. 
         // only element would be at HERE, which is what elt represents. 
@@ -41,33 +41,32 @@ public class Leaf implements FiniteSet{
   
     }
     
-    public FiniteSet remove (int elt) {
+    public finiteSet remove (int elt) {
         return this;
     }
     
-    public FiniteSet union(FiniteSet u){
+    public finiteSet union(finiteSet u){
         //union of THIS and u should be u because THIS is empty
         return u;
     }
     
-    public FiniteSet inter(FiniteSet u){
+    public finiteSet inter(finiteSet u){
         //intersection of THIS and u should be empty set because there is nothing that intersects
         return this;
     }
     
-    public FiniteSet diff(FiniteSet u) {
+    public finiteSet diff(finiteSet u) {
         return u;
         //difference between THIS and u is u. (This - u) = all elements in this that are not in u,
         //which in the case of the empty set, is all of u. 
     }
-    public boolean equal(FiniteSet u){
+    public boolean equal(finiteSet u){
         //checks that the set u is empty just like this set. 
         return u.isEmptyHuh();
     }
     
-    public boolean subset(FiniteSet u){
+    public boolean subset(finiteSet u){
         //empty set is the subset of all sets. 
-        
         return true;
     }
     
