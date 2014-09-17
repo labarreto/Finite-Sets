@@ -14,82 +14,103 @@ public class Branch implements finiteSet{
             //error here that reads "Branch is not abstract..."
 
     //in class, professor calls it BRANCH. 
-        int here;
-        finiteSet left;
-        finiteSet right;
+        public int here;
+        public finiteSet left;
+        public finiteSet right;
+
         
         Branch(finiteSet left, int here, finiteSet right) {
             this.left = left;
             this.here = here;
             this.right = right;
+          
         }
-        
+
         
         public int cardinality(){
-            return left.cardinality() + right.cardinality();
+            return left.cardinality() + right.cardinality() + 1;
             // returns the size. 
             //left.cardinality() size of left.
             //1 is size of the node you are looking at. 
             //right.cardinality() is the size of the right.
         }
         public boolean isEmptyHuh() {
-            //checks THIS finiteSet. 
-            if (cardinality() == 0) {
-                //if the size is 1 (one node which could be empty)
-                return true;
-            }else {
-                return false;
-            }
-            // returns whether or not the BST is empty. (AND IT IS!)
+            // this is not the empty tree we called Leaf(), so it will not be empty!
+            return false;
+
         }
         public boolean member(int elt) {
-            return false;
-            // returns whether int elt is part of the BST, which it's not
-            // since there are no elements in the BST_MT
+            if (this.here == elt) {
+                //if here == element, return true.
+                return true;
+            } else if (this.here > elt) {
+                //if here > elt that means look at the left side of the tree
+                // since here would be to the right of the current item
+                return left.member(elt);
+            }else {
+                //in other case here < elt, then elt would be to the right
+                // of here, so check the right. 
+                return right.member(elt);
+            }
+    
         }
         
         public finiteSet add(int elt) {
-            return this;
-            //return BST_MT();
-            // !!!!!!!!!!!!!!!COME BACK TO THIS LATER!!!!!!!!!!!!!!!!!
+            if (here == elt) {
+                return this;
+            } else {
+                if (here > elt) {
+                    return new Branch(this.left.add(elt), this.here, this.right);
+                } else {
+                    return new Branch(this.left, this.here, this.right.add(elt));
+                }
+            }
+
         }
         
         public finiteSet remove(int elt) {
-            // when you remove an int from BSt (there are no ints to remove)
-            // just return a new empty BST. 
-            return this;
-            //return BST_MT();
+            if (this.here == elt){
+                //you're getting rid of the current node
+                //you'd want to return a tree that takes the union of the right
+                //and the left side. thus return.....
+                return right.union(left);
+            } else if (this.here > elt) {
+                //this will take 
+                return new Branch(this.left.remove(elt), this.here, this.right);
+            } else {
+                return new Branch(this.left, this.here, this.right.remove(elt));
+            }
         }
         
         public finiteSet union(finiteSet u) {
-            return this;
-            //the union of an empty set and u should be u
+            return u.add(here).union(right).union(left);
+            //adds u to the appropriate spot in the union of the left and right.
         }
         
         public finiteSet inter(finiteSet u) {
-            return this;
-            // the intersection of an empty set and u should be the empty set
-            // since there is no intersection
+            //member will check if the element in u is in this' HERE. 
+            //if it is, then it will be including in the intersection
+            if (u.member(here)) {
+                return new Branch(this.left.inter(u), this.here, this.right.inter(u));
+            }else{
+                // if it is not a member, then remove element HERE from the intersection. 
+                return this.remove(here).inter(u);
+            }
+
         }
         
         public finiteSet diff(finiteSet u) {
             return this;
+            
+            // (THIS - u). diff is elements in this that are not in u. 
             // returns everything that is different from BST u and BST t. 
             // BST t happens to be empty, so the difference will be the entire
             // set of u.
         }
-        
 
-        public boolean equal(finiteSet u) { //(finiteSet u)
-            //error here that reads "return type boolean is not compatible with finiteSet"
-            // if u is not equal to the empty list, return false
-            // used this negation operator due to the fact that there is only
-            // one empty list yet there could be numerous 
+
+    public boolean equal(finiteSet u) {
             return true;
-//            if ( u != this){
-//                return false;
-//            }
-//            return true;
         }
         
         public boolean subset(finiteSet u) { //(finiteSet u)

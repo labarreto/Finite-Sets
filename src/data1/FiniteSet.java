@@ -15,7 +15,7 @@ package data1;
     //renaming bstInterface to BST for simplicity
    interface finiteSet{
         // (empty) --> finite-set
-//        public BST empty();
+        public void empty();
         // (cardinality t) --> integer where t is a finite set (BST).
         public int cardinality();
         // (isEmptyHuh t) --> boolean where t is a finite set
@@ -33,8 +33,8 @@ package data1;
         // (diff t u) --> finite-set where t and u are finite-sets
         public finiteSet diff(finiteSet u);
         // (equal t u) --> boolean where t and u are finite-sets
-        public finiteSet equal(finiteSet u);
+        public boolean equal(finiteSet u);
         // (subset t u) --> boolean where t and u are finite-sets
-        public finiteSet subset(finiteSet u);
+        public boolean subset(finiteSet u);
         
     }
