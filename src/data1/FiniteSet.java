@@ -15,8 +15,6 @@ package data1;
     //renaming bstInterface to BST for simplicity
    interface finiteSet{
         // (empty) --> finite-set
-        public void empty();
-        // (cardinality t) --> integer where t is a finite set (BST).
         public int cardinality();
         // (isEmptyHuh t) --> boolean where t is a finite set
         public boolean isEmptyHuh();

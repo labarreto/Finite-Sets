@@ -6,14 +6,13 @@
 
 package data1;
 
-/**
- *
- * @author ldbruby95
- */
+
 
 //empty tree
 public class Leaf implements FiniteSet{
-
+    
+    Leaf(){}
+    
     
     public static FiniteSet empty(){
         return new Leaf();

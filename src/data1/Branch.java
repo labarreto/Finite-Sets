@@ -17,14 +17,27 @@ public class Branch implements finiteSet{
         public int here;
         public finiteSet left;
         public finiteSet right;
-
         
-        Branch(finiteSet left, int here, finiteSet right) {
+        
+        public Branch(finiteSet left, int here, finiteSet right) {
             this.left = left;
             this.here = here;
             this.right = right;
-          
         }
+        
+        public static finiteSet empty() {
+            //empty will return an empty Branch called Leaf(). 
+            //return empty();
+            return (finiteSet) new Leaf();
+            
+            //why do i have to put a cast? I thought Leaf() implements the finiteSet????
+        }
+//        
+//        
+//        public static finiteSet empty() {
+//            return new Leaf();
+//        }
+
 
         
         public int cardinality(){
@@ -100,6 +113,7 @@ public class Branch implements finiteSet{
         }
         
         public finiteSet diff(finiteSet u) {
+            //figure out
             return this;
             
             // (THIS - u). diff is elements in this that are not in u. 
@@ -110,24 +124,18 @@ public class Branch implements finiteSet{
 
 
     public boolean equal(finiteSet u) {
+        //figure out
+        
             return true;
         }
         
         public boolean subset(finiteSet u) { //(finiteSet u)
-            //error here that reads "return type boolean is not compatible with finiteSet"
+            
+            //figure out
+            
+ 
             return true;
-            // the empty set will always be the subset of another set u.
+
         }
         
-
-        
     }
-    
-    
-
-    
-    
-    
-    /**
-     * @param args the command line arguments
-     */
