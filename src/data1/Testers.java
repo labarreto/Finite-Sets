@@ -20,21 +20,20 @@ public class Testers {
         int remainder = Math.abs(side % 10);
         return remainder;
     }
-    
-    
+
     //random Int function taken from http://stackoverflow.com/questions/363681/generating-random-integers-in-a-range-with-java
     public static int randInt(int min, int max) {
 
     // NOTE: Usually this should be a field rather than a method
-    // variable so that it is not re-seeded every call.
-    Random rand = new Random();
+        // variable so that it is not re-seeded every call.
+        Random rand = new Random();
 
     // nextInt is normally exclusive of the top value,
-    // so add 1 to make it inclusive
-    int randomNum = rand.nextInt((max - min) + 1) + min;
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
 
-    return randomNum;
-}
+        return randomNum;
+    }
 
 //    public static finiteSet createBST(int size) {
 //        finiteSet randomTree = Branch.empty();
@@ -43,15 +42,13 @@ public class Testers {
 //        }
 //        return randomTree;
 //    }
-    
     public static finiteSet createBST(int size) {
         if (size == 0) {
             return Branch.empty();
-        }else {
-            return createBST(size-1).add(randInt(0,50));
+        } else {
+            return createBST(size - 1).add(randInt(0, 50));
         }
     }
-    
 
     //making 10 different trees. 
     //empty tree
@@ -67,10 +64,6 @@ public class Testers {
     static finiteSet bst10 = createBST(9);
     static finiteSet bst11 = createBST(10);
 
-    
-
-
-    
     // property testing. 
     // cardinality testing
     // two case: empty, non empty (Leaf, Branch)
@@ -83,130 +76,171 @@ public class Testers {
             }
         }
     }
-    
+
     public static void testCardinalityNotMT(finiteSet u, int elt) {
         int initialC = u.cardinality();
-        int compareC = initialC +1;
+        int compareC = initialC + 1;
         int finalC = u.add(elt).cardinality();
         // this will add elt to set u, and then find the cardinality, which would be
         // u.cardinality + 1
         // compareC should equal finalC
-        
+
         if (finalC == u.cardinality() + 1 || finalC == u.cardinality()) {
             System.out.println("Success! Initial Cardinality for set is: " + initialC + ". Final cardinality "
-                    + "after adding element is: "+ finalC + ". Final Should be: " + u.add(elt).cardinality());
-        }else {
+                    + "after adding element is: " + finalC + ". Final Should be: " + u.add(elt).cardinality());
+        } else {
             System.out.println("Wrong! Initial Cardinality for set is: " + initialC + ". Final cardinality "
-                    + "after adding element is: "+ finalC + ". Final Should be: " + u.add(elt).cardinality());
+                    + "after adding element is: " + finalC + ". Final Should be: " + u.add(elt).cardinality());
         }
-      
-    } 
-    
 
-    
+    }
+
     public static void testAdd(finiteSet u) {
         int ranNum = ranNum();
         finiteSet adding = u.add(ranNum);
         //you're testing to see that when you add an element, 
         //the size of the cardinality before should be less than or equal
         //to the size after you add an element
-        if ((u.cardinality() <= adding.cardinality()) && adding.member(ranNum)){
-            System.out.println("ADD works! ranNum is: (" + ranNum +
-                    "), u.cardinality is: (" +
-                    u.cardinality() +"), adding.cardinality() is: (" + adding.cardinality() +
-                    ") and finally, adding.member(ranNum) is (" + adding.member(ranNum) + ")");
-        }else {
-            System.out.println("boohoo, check add function...ranNum is: (" + ranNum +
-                    "), u.cardinality is: (" +
-                    u.cardinality() +"), removing.cardinality() is: (" + adding.cardinality() +
-                    ") and finally, removing.member(ranNum) is (" + adding.member(ranNum) + ")");
-    } }
+        if ((u.cardinality() <= adding.cardinality()) && adding.member(ranNum)) {
+            System.out.println("ADD works! ranNum is: (" + ranNum
+                    + "), u.cardinality is: ("
+                    + u.cardinality() + "), adding.cardinality() is: (" + adding.cardinality()
+                    + ") and finally, adding.member(ranNum) is (" + adding.member(ranNum) + ")");
+        } else {
+            System.out.println("boohoo, check add function...ranNum is: (" + ranNum
+                    + "), u.cardinality is: ("
+                    + u.cardinality() + "), removing.cardinality() is: (" + adding.cardinality()
+                    + ") and finally, removing.member(ranNum) is (" + adding.member(ranNum) + ")");
+        }
+    }
+
+    public static void testRemove(finiteSet u) {
+        int ranNum = ranNum();
+        finiteSet removing = u.remove(ranNum);
+        if (removing.cardinality() <= u.cardinality()) {
+            System.out.println("REMOVE works! ranNum is: (" + ranNum
+                    + "), u.cardinality is: ("
+                    + u.cardinality() + "), adding.cardinality() is: (" + removing.cardinality()
+                    + ") and finally, adding.member(ranNum) is (" + removing.member(ranNum) + ")");
+        } else {
+            System.out.println("boohoo, check remove function...ranNum is: (" + ranNum
+                    + "), u.cardinality is: ("
+                    + u.cardinality() + "), removing.cardinality() is: (" + removing.cardinality()
+                    + ") and finally, removing.member(ranNum) is (" + removing.member(ranNum) + ")");
+        }
+
+    }
+
+    public static void testMember(finiteSet a, int elt) {
+        finiteSet x = a.add(elt);
+        finiteSet y = a.diff(x);
+        if (y.member(elt)) {
+            System.out.println("SUCCESS! elt is a member of the difference set!");
+        } else {
+            System.out.println("FAILURE! elt is not a member of the difference set!");
+        }
+    }
     
-  public static void testRemove(finiteSet u)  {
-      int ranNum = ranNum();
-      finiteSet removing = u.remove(ranNum);
-      if(removing.cardinality() <= u.cardinality()) {
-          System.out.println("REMOVE works! ranNum is: (" + ranNum +
-                    "), u.cardinality is: (" +
-                    u.cardinality() +"), adding.cardinality() is: (" + removing.cardinality() +
-                    ") and finally, adding.member(ranNum) is (" + removing.member(ranNum) + ")");
-      } else {
-                      System.out.println("boohoo, check remove function...ranNum is: (" + ranNum +
-                    "), u.cardinality is: (" +
-                    u.cardinality() +"), removing.cardinality() is: (" + removing.cardinality() +
-                    ") and finally, removing.member(ranNum) is (" + removing.member(ranNum) + ")");
-      }
-      
-  }
-  
-  public static void testSubset(finiteSet a, finiteSet b, finiteSet c) {
-       if((a.union(b)).subset(c) == (a.subset(c) && b.subset(c)))  {
-          //b.subset(a);
-          System.out.println("SUCCESS! (A union B)subset of c? value is: " + (a.union(b)).subset(c) +
-                  " equals A subset of C? and B subset of C? value is: " + (a.subset(c) && b.subset(c)));
-      } else {
-           System.out.println("FAILURE! (A union B)subset of c? Should be true, is: " + (a.union(b)).subset(c) +
-                  " equals A subset of C? and B subset of C? Should be true, is: " + (a.subset(c) && b.subset(c)));
-       }
-  }
-  
-  public static void testEmptyInter(finiteSet u) {
-      if (u.inter(Branch.empty()).equal(Branch.empty())) {
-          System.out.println("SUCCESS! The intersection between u and the empty set is the empty set!");
-      } else {
-          System.out.println("FAILURE! The intersection between u and the empty set MUST be the empty set!!!");
-      }
-  }
-  
-  //Property of set equality
-  public static void testEqual(finiteSet t, finiteSet u) {
-      if ((t.union(u)).equal(t.inter(u)) && t.equal(u)) {
-          System.out.println("SUCCESS! Sets t and u are equal because they have the same intersection and union");
-      }else {
-          System.out.println("FAILURE! Sets t and u are not equal because they don't have the same intersection a and union" );
-      }
-  }
-  
-  public static void testDiff(finiteSet t, int elt) {
-      finiteSet x = t.add(elt);
-      finiteSet y = t.diff(x);
-      if (t.diff(t.add(elt)).equal(y)) {
-          System.out.println("SUCCESS! The difference between set t and set t with added element elt, is the elt.");
-      } else {
-          System.out.println("FAILURE! No diff between set t and set t with additional element");
-      }
-  }
+    // Testing subset properties 
+    public static void testSubset(finiteSet a, finiteSet b, finiteSet c) {
+        if ((a.union(b)).subset(c) == (a.subset(c) && b.subset(c))) {
+            //b.subset(a);
+            System.out.println("SUCCESS! (A union B)subset of c? value is: " + (a.union(b)).subset(c)
+                    + " equals A subset of C? and B subset of C? value is: " + (a.subset(c) && b.subset(c)));
+        } else {
+            System.out.println("FAILURE! (A union B)subset of c? Should be true, is: " + (a.union(b)).subset(c)
+                    + " equals A subset of C? and B subset of C? Should be true, is: " + (a.subset(c) && b.subset(c)));
+        }
+    }
+    
+    public static void testSubset(finiteSet a, finiteSet b) {
+        finiteSet x = a.union(b);
+        if (a.subset(x) && b.subset(x)) {
+            System.out.println("SUCCESS! Set a and set b are subsets of the union of a and b.");
+        } else {
+            System.out.println("FAILURE! Set a and set b are not subsets of the union of a and b");
+        }
+    }
+    
+    public static void testSubset(finiteSet a, int elt) {
+        finiteSet x = a.add(elt);
+        finiteSet y = a.diff(x); //set containing elt. 
+        if (y.subset(x)) {
+            System.out.println("SUCCESS! The difference set is a subset of y. ");
+        } else {
+            System.out.println("FAILURE! The difference set is not a subset of y. ");
+        }
+    }
 
-  
+    public static void testEmptyInter(finiteSet u) {
+        if (u.inter(Branch.empty()).equal(Branch.empty())) {
+            System.out.println("SUCCESS! The intersection between u and the empty set is the empty set!");
+        } else {
+            System.out.println("FAILURE! The intersection between u and the empty set MUST be the empty set!!!");
+        }
+    }
 
-  public static void testInter(finiteSet t, finiteSet u) {
-      finiteSet i = t.union(u);
-      // the intersection between u and the union of Set t and u should be u. 
-      if(u.inter(i).equal(u)) {
-          System.out.println("SUCCESS! The intersection between u and the union of t and u is u!");
-      } else {
-          System.out.println("Failure! the intersection between u and the union of t and u is not u");
-      }
-  }
-  
+    //Property of set equality
+    public static void testEqual(finiteSet t, finiteSet u) {
+        if ((t.union(u)).equal(t.inter(u)) && t.equal(u)) {
+            System.out.println("SUCCESS! Sets t and u are equal because they have the same intersection and union");
+        } else {
+            System.out.println("FAILURE! Sets t and u are not equal because they don't have the same intersection a and union");
+        }
+    }
+
+    public static void testDiff(finiteSet t, int elt) {
+      //elt should be a member of the diff. 
+        //when you add int elt to t, the difference between t and x 
+        finiteSet x = t.add(elt);
+      //y is the difference between t and x. In this case, the difference should be elt.
+        //that means elt should be a member of y. 
+        finiteSet y = t.diff(x);
+        if (y.member(elt)) {
+            System.out.println("SUCCESS! The difference between set t and set t with added element elt, is the elt.");
+        } else {
+            System.out.println("FAILURE! No diff between set t and set t with additional element");
+        }
+    }
+
+    public static void testInter(finiteSet t, finiteSet u) {
+        finiteSet i = t.union(u);
+        // the intersection between u and the union of Set t and u should be u. 
+        if (u.inter(i).equal(u)) {
+            System.out.println("SUCCESS! The intersection between u and the union of t and u is u!");
+        } else {
+            System.out.println("Failure! the intersection between u and the union of t and u is not u");
+        }
+    }
+
     public static void testInter(finiteSet t, finiteSet u, int elt) {
-      finiteSet a = t.add(elt);
-      finiteSet b = u.add(elt);
-      if (!a.inter(b).isEmptyHuh()) {
-          System.out.println("SUCCESS! The intersection between t and u after adding a common element is not empty!");
-      } else {
-          System.out.println("FAILURE: The intersection between t and u after adding a common element is empty even though it shouldn't be");
-      }
-      
-  }
+        finiteSet a = t.add(elt);
+        finiteSet b = u.add(elt);
+        if (!a.inter(b).isEmptyHuh()) {
+            System.out.println("SUCCESS! The intersection between t and u after adding a common element is not empty!");
+        } else {
+            System.out.println("FAILURE: The intersection between t and u after adding a common element is empty even though it shouldn't be");
+        }
+
+    }
     
-    
-  
+    public static void testUnion(finiteSet a, int elt) {
+        finiteSet x = a.add(elt);
+        finiteSet y = a.diff(x); //set containing elt. 
+        
+        if (x.equal(a.union(y))) {
+            System.out.println("SUCCESS! The set A with additional item elt (new set called X), is equal to the union of Difference Set Y "
+                    + " and A!");
+        } else {
+            System.out.println("FAILURE! no union.");
+        }
+        
+    }
 
     public static void main(String[] args) {
         // TODO code application logic here
         //random num testing. 
-        
+
         System.out.println("SIZE OF TREES");
         System.out.println("Bst1 Card: " + bst1.cardinality());
         System.out.println("Bst2 Card: " + bst2.cardinality());
@@ -220,8 +254,6 @@ public class Testers {
         System.out.println("Bst10 Card: " + bst10.cardinality());
         System.out.println("Bst11 Card: " + bst11.cardinality());
         System.out.println("------------------------------------------------------------");
-
-
 
         System.out.println("TESTING ADD PROPERTIES");
         testAdd(bst1);
@@ -239,38 +271,61 @@ public class Testers {
         System.out.println("------------------------------------------------------------");
         System.out.println("TESTING CARDINALITY PROPERTIES");
         testCardinalityMT(bst1);
-        testCardinalityNotMT(bst2,5);
-        testCardinalityNotMT(bst3,0);
-        testCardinalityNotMT(bst4,40);
-        testCardinalityNotMT(bst5,5);
-        testCardinalityNotMT(bst6,6);
-        testCardinalityNotMT(bst7,70);
+        testCardinalityNotMT(bst2, 5);
+        testCardinalityNotMT(bst3, 0);
+        testCardinalityNotMT(bst4, 40);
+        testCardinalityNotMT(bst5, 5);
+        testCardinalityNotMT(bst6, 6);
+        testCardinalityNotMT(bst7, 70);
         testCardinalityNotMT(bst8, 14);
         testCardinalityNotMT(bst9, 23);
         testCardinalityNotMT(bst10, 100);
         System.out.println("------------------------------------------------------------");
         System.out.println("TESTING SUBSET PROPERTIES");
-        testSubset(bst1, bst1, bst2); 
+        testSubset(bst1, bst1, bst2);
         testSubset(bst2, bst5, bst10); // low chances of it being true for a subset since 7 out of 10 elements would have to be in bst10. 
         testSubset(bst1, bst1, bst1);
-        
-        testSubset(bst3,bst2,bst1); //this should return a success since it's able to detect it's NOT a subset. 
-        
+        testSubset(bst3, bst2, bst1); //this should return a success since it's able to detect it's NOT a subset. 
+        testSubset(bst1,bst2);
+        testSubset(bst2,bst3);
+        testSubset(bst3,bst4);
+        testSubset(bst4,bst5);
+        testSubset(bst1, 2);
+        testSubset(bst2, 10);
+        testSubset(bst3, 15);
         System.out.println("------------------------------------------------------------");
         System.out.println("TESTING EQUAL PROPERTIES");
         System.out.println("Should return success. comparing bst3, and bst3: ");
-        testEqual(bst3,bst3); // should return success
+        testEqual(bst3, bst3); // should return success
         System.out.println("Should return failure. comparing bst3, and bst4: ");
-        testEqual(bst3,bst4); // should return failure
-        
+        testEqual(bst3, bst4); // should return failure
+        System.out.println("------------------------------------------------------------");
+        System.out.println("TESTING INTERSECTION PROPERTIES");
         testInter(bst3, bst1);
         testInter(bst2, bst2);
-        testInter(bst5,bst7,155);
-        
+        testInter(bst5, bst7, 155);
+        System.out.println("------------------------------------------------------------");
+        System.out.println("TESTING DIFFERENCE PROPERTIES");
         testDiff(bst1, 5);
         testDiff(bst2, 20);
         testDiff(bst5, 100);
         testDiff(bst5, 2);
+        
+        System.out.println("------------------------------------------------------------");
+        System.out.println("TESTING MEMBER PROPERTIES");
+        testMember(bst1, 5);
+        testMember(bst2, 20);
+        testMember(bst5, 100);
+        testMember(bst5, 2);
+        
+        System.out.println("------------------------------------------------------------");
+        System.out.println("TESTING UNION PROPERTIES");    
+        testUnion(bst1, 5);
+        testUnion(bst2, 20);
+        testUnion(bst5, 100);
+        testUnion(bst5, 2);
+        
+        
 
     }
 
