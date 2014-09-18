@@ -141,7 +141,7 @@ public class Testers {
   
   public static void testSubset(finiteSet a, finiteSet b, finiteSet c) {
        if((a.union(b)).subset(c) == (a.subset(c) && b.subset(c)))  {
-          b.subset(a);
+          //b.subset(a);
           System.out.println("SUCCESS! (A union B)subset of c? value is: " + (a.union(b)).subset(c) +
                   " equals A subset of C? and B subset of C? value is: " + (a.subset(c) && b.subset(c)));
       } else {
