@@ -37,7 +37,7 @@ public class Leaf implements finiteSet{
         // add int elt to a the empty tree.
         // thus left and right would be null. 
         // only element would be at HERE, which is what elt represents. 
-        return new Branch(null, elt, null);
+        return new Branch(new Leaf(), elt, new Leaf());
   
     }
     

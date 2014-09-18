@@ -40,11 +40,15 @@ public class Branch implements finiteSet {
 //        }
 
     public int cardinality() {
-        return left.cardinality() + right.cardinality() + 1;
-            // returns the size. 
+
+        // returns the size. 
         //left.cardinality() size of left.
         //1 is size of the node you are looking at. 
         //right.cardinality() is the size of the right.
+
+            return 1+this.left.cardinality()+this.right.cardinality();
+      
+
     }
 
     public boolean isEmptyHuh() {
@@ -74,30 +78,31 @@ public class Branch implements finiteSet {
             return this;
         } else {
             if (here > elt) {
-                return new Branch(this.left.add(elt), this.here, this.right);
+                return new Branch(left.add(elt), here, right);
             } else {
-                return new Branch(this.left, this.here, this.right.add(elt));
+                return new Branch(left, here, right.add(elt));
             }
         }
+
 
     }
 
     public finiteSet remove(int elt) {
-        if (this.here == elt) {
+        if (here == elt) {
                 //you're getting rid of the current node
             //you'd want to return a tree that takes the union of the right
             //and the left side. thus return.....
             return right.union(left);
-        } else if (this.here > elt) {
+        } else if (here > elt) {
             //this will take 
-            return new Branch(this.left.remove(elt), this.here, this.right);
+            return new Branch(left.remove(elt), here, right);
         } else {
-            return new Branch(this.left, this.here, this.right.remove(elt));
+            return new Branch(left, here, right.remove(elt));
         }
     }
 
     public finiteSet union(finiteSet u) {
-        return u.add(here).union(right).union(left);
+        return this.left.union(u.union(right).add(this.here));
         //adds u to the appropriate spot in the union of the left and right.
     }
 
