@@ -46,7 +46,7 @@ public class Branch implements finiteSet {
         //1 is size of the node you are looking at. 
         //right.cardinality() is the size of the right.
 
-            return 1+this.left.cardinality()+this.right.cardinality();
+            return 1 + this.left.cardinality()+this.right.cardinality();
       
 
     }
